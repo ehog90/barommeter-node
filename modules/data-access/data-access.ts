@@ -2,7 +2,6 @@ import {Client} from 'pg';
 import {IDeviceEntity, IRealtimeNotificationData} from "../entities";
 import {pushLog} from "../logger/logger";
 import {postgresCredentials} from "../restricted/restricted-data";
-import {async} from "rxjs/scheduler/async";
 
 //Later will introduce pooling
 export const client = new Client(postgresCredentials);
