@@ -35,3 +35,10 @@ export interface ICurrentState {
     mobileDeviceUp: boolean;
     upEntities?: IDeviceEntity[];
 }
+
+export interface IHistoricEntry {
+    entityId: string;
+    on: number | string | Date
+    off: number | string | Date | null,
+    entity?: IDeviceEntity
+}

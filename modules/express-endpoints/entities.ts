@@ -14,7 +14,7 @@ export async function getCurrentState(req: Request, res: Response) {
         fixedDeviceUp: upDevices.filter(e => e.isFixed).length !== 0,
         externalUp: upDevices.filter(e => e.deviceType == DeviceType.ExternalPlace).length !== 0,
         mobileDeviceUp: upDevices.filter(e => !e.isFixed).length !== 0,
-        upEntities: req.query['detailed'] ? upDevices : undefined
+        upEntities: req.query['detailed'] && req.query['detailed'] != 'false' ? upDevices : undefined
     };
     res.json(result);
 }

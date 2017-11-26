@@ -1,5 +1,5 @@
 import {Client} from 'pg';
-import {IDeviceEntity, IRealtimeNotificationData} from "../entities";
+import {IDeviceEntity, IHistoricEntry, IRealtimeNotificationData} from "../entities";
 import {pushLog} from "../logger/logger";
 import {postgresCredentials} from "../restricted/restricted-data";
 
@@ -64,6 +64,17 @@ export async function commitEntityState(entity: IDeviceEntity, previousDeviceSta
         return Promise.resolve(true);
     }
 }
+
+export async function getHistoricData(limit: number): Promise<IHistoricEntry[]> {
+    const result = await client.query(`SELECT entity_id "entityId", entity_turnon "on", entity_turnoff "off" FROM apalog_log ORDER BY entity_turnon DESC LIMIT $1 `, [limit]);
+    result.rows.forEach(row => {
+        row.on = new Date(row.on).getTime();
+        row.off = row.off ? new Date(row.off).getTime(): null;
+    });
+    return Promise.resolve(result.rows);
+}
+
+
 
 
 
