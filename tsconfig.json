@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "noImplicitAny": true,
+    "removeComments": true,
+    "sourceMap": true,
+    "target": "es2017"
+  },
+  "include": [
+    "index.ts","modules/**/*"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}

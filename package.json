@@ -1,0 +1,30 @@
+{
+  "name": "barommeter",
+  "version": "1.0.0",
+  "description": "network monitoring tool",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.16.2",
+    "is-reachable": "^2.3.3",
+    "moment": "^2.19.2",
+    "node-cron": "^1.2.1",
+    "portscanner": "^2.1.1",
+    "rxjs": "^5.5.2"
+  },
+  "devDependencies": {
+    "@types/express": "^4.0.39",
+    "@types/moment": "^2.13.0",
+    "@types/pg": "^7.4.0",
+    "@types/portscanner": "^2.1.0",
+    "@types/rx": "^4.1.1",
+    "grunt": "^1.0.1",
+    "grunt-ts": "^6.0.0-beta.17",
+    "pg": "^7.4.0",
+    "typescript": "^2.6.1"
+  }
+}
