@@ -1,6 +1,6 @@
 import * as express from 'express';
 import {welcome} from "./express-endpoints/welcome";
-import {getAllEntities} from "./express-endpoints/entities";
+import {getAllEntities, getCurrentState} from "./express-endpoints/entities";
 import {pushLog} from "./logger/logger";
 
 export function startExpress() {
@@ -9,6 +9,7 @@ export function startExpress() {
 
     app.get('/', welcome);
     app.get('/entities', getAllEntities);
+    app.get('/current-state', getCurrentState);
 
     app.listen(port, () => {pushLog(`Express server started on ${port}`)});
 }

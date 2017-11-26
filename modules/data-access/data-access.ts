@@ -2,12 +2,14 @@ import {Client} from 'pg';
 import {IDeviceEntity, IRealtimeNotificationData} from "../entities";
 import {pushLog} from "../logger/logger";
 import {postgresCredentials} from "../restricted/restricted-data";
+import {async} from "rxjs/scheduler/async";
 
 //Later will introduce pooling
 export const client = new Client(postgresCredentials);
 
 export async function connectToPostgres() {
-    pushLog("Connecting to Postgres.");    await client.connect();
+    pushLog("Connecting to Postgres.");
+    await client.connect();
     pushLog("Connected to Postgres.");
 }
 
@@ -39,6 +41,19 @@ export async function checkEntityAvailability(entity: IDeviceEntity): Promise<bo
     return Promise.resolve(result.rowCount !== 0);
 }
 
+export async function queryDevicesUp(): Promise<IDeviceEntity[]> {
+    const devices = await queryAllEntities();
+    return await devices.reduce(async (previousValue, currentValue) => {
+        const isDeviceAvailable = await checkEntityAvailability(currentValue);
+        const p = await previousValue;
+        if (isDeviceAvailable) {
+            p.push(currentValue);
+        }
+        return Promise.resolve(p);
+    }, Promise.resolve([]));
+
+}
+
 export async function commitEntityState(entity: IDeviceEntity, previousDeviceStatus: boolean, deviceStatus: boolean): Promise<boolean> {
     if (previousDeviceStatus == deviceStatus) {
         return Promise.resolve(false)
@@ -50,6 +65,8 @@ export async function commitEntityState(entity: IDeviceEntity, previousDeviceSta
         return Promise.resolve(true);
     }
 }
+
+
 
 
 

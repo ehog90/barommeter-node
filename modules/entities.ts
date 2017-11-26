@@ -28,3 +28,10 @@ export interface IDeviceEntityWithStatus {
     openPorts: number[];
     isUp: boolean;
 }
+
+export interface ICurrentState {
+    fixedDeviceUp: boolean;
+    externalUp: boolean;
+    mobileDeviceUp: boolean;
+    upEntities?: IDeviceEntity[];
+}
